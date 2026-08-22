@@ -8,24 +8,10 @@ import type { StudentTabParamList, StudentStackParamList } from '../types';
 // Tab screens
 import { StudentHomeScreen } from '../screens/student/StudentHomeScreen';
 import { DiscoverGigsScreen } from '../screens/student/DiscoverGigsScreen';
-import { MyGigsScreen } from '../screens/student/MyGigsScreen';
-import { MessagesListScreen } from '../screens/shared/MessagesListScreen';
-import { StudentProfileScreen } from '../screens/student/StudentProfileScreen';
+import { MyGigsScreen, MessagesListScreen, StudentProfileScreen, GigDetailsScreen, ApplyGigScreen, WorkTrackerScreen, SubmitWorkScreen, RevisionRequestedScreen, EarningsScreen, NotificationsScreen, SavedGigsScreen, ReviewsScreen, ChatThreadScreen, RateExperienceScreen, GlobalSearchScreen } from '../screens/DemoScreens';
 
 // Stack screens
 import { GigFiltersScreen } from '../screens/student/GigFiltersScreen';
-import { GigDetailsScreen } from '../screens/student/GigDetailsScreen';
-import { ApplyGigScreen } from '../screens/student/ApplyGigScreen';
-import { WorkTrackerScreen } from '../screens/student/WorkTrackerScreen';
-import { SubmitWorkScreen } from '../screens/student/SubmitWorkScreen';
-import { RevisionRequestedScreen } from '../screens/student/RevisionRequestedScreen';
-import { EarningsScreen } from '../screens/student/EarningsScreen';
-import { NotificationsScreen } from '../screens/student/NotificationsScreen';
-import { SavedGigsScreen } from '../screens/student/SavedGigsScreen';
-import { ReviewsScreen } from '../screens/student/ReviewsScreen';
-import { ChatThreadScreen } from '../screens/shared/ChatThreadScreen';
-import { RateExperienceScreen } from '../screens/shared/RateExperienceScreen';
-import { GlobalSearchScreen } from '../screens/shared/GlobalSearchScreen';
 
 const Tab = createBottomTabNavigator<StudentTabParamList>();
 const Stack = createNativeStackNavigator<StudentStackParamList>();

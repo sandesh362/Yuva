@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Search, MapPin, ChevronRight, Sparkles, SlidersHorizontal } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { GigCard, AvatarInitials } from '../../components';
-import { mockGigs } from '../../mockData/gigs';
 import { studentUser } from '../../mockData/user';
+import { useDemo } from '../../state/DemoContext';
 
 const filterChips = [
   { label: 'Near me', icon: '📍' },
@@ -16,6 +16,9 @@ const filterChips = [
 
 export const DiscoverGigsScreen = () => {
   const navigation = useNavigation<any>();
+  const { gigs, savedGigIds, toggleSaved } = useDemo();
+  const [query, setQuery] = React.useState('');
+  const visibleGigs = gigs.filter((gig) => `${gig.title} ${gig.businessName} ${gig.skills.join(' ')}`.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
@@ -42,6 +45,8 @@ export const DiscoverGigsScreen = () => {
               className="flex-1 ml-2 text-sm text-slate-900"
               placeholder="Search gigs, skills or businesses"
               placeholderTextColor="#94A3B8"
+              value={query}
+              onChangeText={setQuery}
             />
           </View>
         </View>
@@ -81,15 +86,13 @@ export const DiscoverGigsScreen = () => {
             <Text className="text-lg font-bold text-slate-900">Nearby Gigs</Text>
             <Text className="text-xs text-slate-500 mt-0.5">Gigs within 5km of your location</Text>
           </View>
-          {mockGigs.map((gig) => (
+          {visibleGigs.map((gig) => (
             <GigCard
               key={gig.id}
               gig={gig}
               onPress={() => navigation.navigate('GigDetails', { gigId: gig.id })}
-              onBookmark={() => {
-                // TODO: connect to backend
-              }}
-              isBookmarked={gig.isSaved}
+              onBookmark={() => toggleSaved(gig.id)}
+              isBookmarked={savedGigIds.includes(gig.id)}
             />
           ))}
         </View>

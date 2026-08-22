@@ -6,23 +6,10 @@ import { LayoutGrid, Briefcase, PlusCircle, MessageSquare, User } from 'lucide-r
 import type { BusinessTabParamList, BusinessStackParamList } from '../types';
 
 // Tab screens
-import { BusinessDashboardScreen } from '../screens/business/BusinessDashboardScreen';
-import { ManageGigsScreen } from '../screens/business/ManageGigsScreen';
-import { PostGigScreen } from '../screens/business/PostGigScreen';
-import { MessagesListScreen } from '../screens/shared/MessagesListScreen';
-import { BusinessProfileScreen } from '../screens/business/BusinessProfileScreen';
+import { BusinessDashboardScreen, ManageGigsScreen, PostGigScreen, MessagesListScreen, BusinessNotificationsScreen, SavedTalentScreen, ReportSupportScreen, ManageApplicantsScreen, CandidateProfileScreen, CandidateComparisonScreen, ConfirmSelectionScreen, BusinessWorkTrackerScreen, PaymentDetailsScreen, ChatThreadScreen } from '../screens/DemoScreens';
+import { BusinessProfileScreen } from '../screens/DemoScreens';
 
 // Stack screens
-import { ManageApplicantsScreen } from '../screens/business/ManageApplicantsScreen';
-import { CandidateProfileScreen } from '../screens/business/CandidateProfileScreen';
-import { CandidateComparisonScreen } from '../screens/business/CandidateComparisonScreen';
-import { ConfirmSelectionScreen } from '../screens/business/ConfirmSelectionScreen';
-import { BusinessWorkTrackerScreen } from '../screens/business/BusinessWorkTrackerScreen';
-import { PaymentDetailsScreen } from '../screens/business/PaymentDetailsScreen';
-import { BusinessNotificationsScreen } from '../screens/business/BusinessNotificationsScreen';
-import { SavedTalentScreen } from '../screens/business/SavedTalentScreen';
-import { ReportSupportScreen } from '../screens/business/ReportSupportScreen';
-import { ChatThreadScreen } from '../screens/shared/ChatThreadScreen';
 
 const Tab = createBottomTabNavigator<BusinessTabParamList>();
 const Stack = createNativeStackNavigator<BusinessStackParamList>();

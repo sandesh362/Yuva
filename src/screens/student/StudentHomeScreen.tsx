@@ -4,11 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bell, ChevronRight, MapPin, Search, SlidersHorizontal, Check, Map } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { GigCard, GradientBannerCard, AvatarInitials } from '../../components';
-import { mockGigs } from '../../mockData/gigs';
 import { studentUser } from '../../mockData/user';
+import { useDemo } from '../../state/DemoContext';
 
 export const StudentHomeScreen = () => {
   const navigation = useNavigation<any>();
+  const { gigs, savedGigIds, toggleSaved } = useDemo();
 
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
@@ -63,7 +64,7 @@ export const StudentHomeScreen = () => {
                   <Text className="text-base font-bold text-white ml-1">Verified Student</Text>
                 </View>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('StudentProfile')}>
                 <Text className="text-sm font-semibold text-white/90">My Portfolio →</Text>
               </TouchableOpacity>
             </View>
@@ -74,19 +75,17 @@ export const StudentHomeScreen = () => {
         <View className="px-5">
           <View className="flex-row items-center justify-between mb-3">
             <Text className="text-lg font-bold text-slate-900">Recommended for you</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('DiscoverGigs')}>
               <Text className="text-sm font-semibold text-blue-600">See All</Text>
             </TouchableOpacity>
           </View>
-          {mockGigs.slice(0, 3).map((gig) => (
+          {gigs.slice(0, 3).map((gig) => (
             <GigCard
               key={gig.id}
               gig={gig}
               onPress={() => navigation.navigate('GigDetails', { gigId: gig.id })}
-              onBookmark={() => {
-                // TODO: connect to backend
-              }}
-              isBookmarked={gig.isSaved}
+              onBookmark={() => toggleSaved(gig.id)}
+              isBookmarked={savedGigIds.includes(gig.id)}
             />
           ))}
         </View>

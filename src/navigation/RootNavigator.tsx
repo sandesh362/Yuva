@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { RootStackParamList, UserRole } from '../types';
@@ -6,6 +6,7 @@ import type { RootStackParamList, UserRole } from '../types';
 import { AuthStack } from './AuthStack';
 import { StudentStack } from './StudentStack';
 import { BusinessStack } from './BusinessStack';
+import { DemoProvider, useDemo } from '../state/DemoContext';
 
 // Simple auth context for role switching (no real auth)
 interface AuthContextType {
@@ -23,7 +24,11 @@ export const useAuth = () => useContext(AuthContext);
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
-  const [role, setRole] = useState<UserRole | null>(null);
+  return <DemoProvider><NavigatorContent /></DemoProvider>;
+};
+
+const NavigatorContent = () => {
+  const { role, setRole } = useDemo();
 
   return (
     <AuthContext.Provider value={{ role, setRole }}>
