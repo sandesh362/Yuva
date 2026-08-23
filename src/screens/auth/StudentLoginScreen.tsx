@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { Alert, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { User, Lock, Shield } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FormField } from '../../components';
 import { useAuth } from '../../navigation/RootNavigator';
+import { login } from '../../api/auth';
 
 export const StudentLoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setRole } = useAuth();
+  const { completeLogin } = useAuth();
   const navigation = require('@react-navigation/native').useNavigation<any>();
 
-  const handleLogin = () => {
-    // TODO: connect to backend
-    setRole('student');
+  const handleLogin = async () => {
+    try {
+      const user = await login(email, password);
+      if (user.role !== 'student') throw new Error('Please use the business sign-in for this account.');
+      await completeLogin(user);
+    } catch (error) { Alert.alert('Login failed', error instanceof Error ? error.message : 'Please try again.'); }
   };
 
   const handleSignup = () => {

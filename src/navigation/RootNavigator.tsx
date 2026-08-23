@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { RootStackParamList, UserRole } from '../types';
+import type { ApiUser } from '../api/auth';
 
 import { AuthStack } from './AuthStack';
 import { StudentStack } from './StudentStack';
@@ -12,11 +13,15 @@ import { DemoProvider, useDemo } from '../state/DemoContext';
 interface AuthContextType {
   role: UserRole | null;
   setRole: (role: UserRole | null) => void;
+  completeLogin: (user: ApiUser) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType>({
   role: null,
   setRole: () => {},
+  completeLogin: async () => {},
+  logout: async () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -28,10 +33,10 @@ export const RootNavigator = () => {
 };
 
 const NavigatorContent = () => {
-  const { role, setRole } = useDemo();
+  const { role, setRole, completeLogin, logout } = useDemo();
 
   return (
-    <AuthContext.Provider value={{ role, setRole }}>
+    <AuthContext.Provider value={{ role, setRole, completeLogin, logout }}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade' }}>
           {role === null ? (
